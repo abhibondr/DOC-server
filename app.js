@@ -12,4 +12,5 @@ app.use(bodyParser.json());
 const port = process.env.PORT || 8080;
 
 app.use("/api/users", require("./routes/user.route"));
+app.use("/api/auth", require("./routes/auth.route"));
 app.listen(port, () => console.log(`Server is listening on port ${port}`));
