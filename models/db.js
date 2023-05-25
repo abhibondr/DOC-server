@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 
-const url = "mongodb://127.0.0.1:27017/DocServer";
+// const url = "mongodb://127.0.0.1:27017/DocServer";
+const url =
+  "mongodb+srv://abhibondre:docdb123@cluster0.zx1d9gg.mongodb.net/?retryWrites=true&w=majority";
 
 mongoose.connect(url);
 
