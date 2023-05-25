@@ -1,3 +1,4 @@
+const { encrypt } = require("../helpers/encryption");
 const UserModel = require("../models/user.model");
 
 const userCtrl = {
@@ -5,6 +6,16 @@ const userCtrl = {
     let data = [req.body];
 
     if (Array.isArray(req.body)) data = req.body;
+
+    //encrypt the password
+    if (Array.isArray(data)) {
+      data = data?.map((user) => {
+        if (user?.password) {
+          return { ...user, password: encrypt(user?.password) };
+        }
+        return user;
+      });
+    }
 
     UserModel.insertMany(data)
       .then((result) => {
@@ -22,6 +33,12 @@ const userCtrl = {
   updateUser(req, res) {
     const { id } = req.params;
     const user = req.body;
+
+    //encrypt the password
+    if (user?.password) {
+      user.password = encrypt(user?.password);
+    }
+
     UserModel.findOneAndUpdate({ _id: id }, user, { new: true })
       .then((result) => {
         if (!result) throw new Error("User Not Updated");
