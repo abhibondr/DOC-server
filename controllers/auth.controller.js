@@ -1,6 +1,7 @@
 const { compare } = require("../helpers/encryption");
 const { createToken } = require("../helpers/token");
 const userModel = require("../models/user.model");
+const { pickUser } = require("./user.controller");
 
 module.exports = {
   userLogin(req, res) {
@@ -32,7 +33,9 @@ module.exports = {
           res.set("x-token", token);
 
           //send response
-          res.status(200).send({ message: "Login Successful", data: result });
+          res
+            .status(200)
+            .send({ message: "Login Successful", data: pickUser(result) });
         } else {
           //invalid password
           return handleErrorResponse(404, "Invalid password");

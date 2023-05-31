@@ -9,6 +9,11 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+app.use((req, res, next) => {
+  res.header("Access-Control-Expose-Headers", "x-token");
+  next();
+});
+
 const port = process.env.PORT || 8080;
 
 app.use("/api/users", require("./routes/user.route"));
