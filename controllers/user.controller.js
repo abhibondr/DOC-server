@@ -1,7 +1,21 @@
 const { encrypt } = require("../helpers/encryption");
 const UserModel = require("../models/user.model");
+const _ = require("lodash");
 
 const userCtrl = {
+  pickUser(user) {
+    return _.pick(user, [
+      "_id",
+      "name",
+      "mobile",
+      "email",
+      "status",
+      "role",
+      "userId",
+      "avatar",
+    ]);
+  },
+
   createUser(req, res) {
     let data = [req.body];
 
