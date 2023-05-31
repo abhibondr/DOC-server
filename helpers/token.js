@@ -10,7 +10,7 @@ const createToken = (payload, expiresIn = 30 * 60) => {
 
 const verifyToken = (token) => {
   try {
-    return jwt.verify(token);
+    return jwt.verify(token, process.env.KEY);
   } catch (err) {
     console.log(err);
   }
