@@ -1,5 +1,5 @@
 const { compare } = require("../helpers/encryption");
-const { createToken } = require("../helpers/token");
+const { createToken, verifyToken } = require("../helpers/token");
 const userModel = require("../models/user.model");
 const { pickUser } = require("./user.controller");
 
@@ -45,5 +45,18 @@ module.exports = {
         //invalid email
         return handleErrorResponse(500, "could not login", err);
       });
-  },
+  }, //userLogin
+
+  validateToken(req, res) {
+    const { token } = req.body;
+
+    const payload = verifyToken(token);
+    if (payload) {
+      //valid token
+      res.status(200).send({ message: "Token is valid", data: {} });
+    } else {
+      //invalid token
+      res.status(400).send({ message: "Token is invalid", error: null });
+    }
+  }, //validateToken
 };
