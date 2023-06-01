@@ -59,4 +59,24 @@ module.exports = {
       res.status(400).send({ message: "Token is invalid", error: null });
     }
   }, //validateToken
+
+  passwordResetLink(req, res) {
+    const { email } = req.body;
+
+    userModel
+      .findOne({ email, status: 1 })
+      .then((result) => {
+        if (result?._id) {
+          const domain = req.headers.origin;
+          console.log("domain", domain);
+          res.status(200).send({ message: "password link send", data: {} });
+        } else {
+          throw Promise.reject("invalid email id ");
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(404).send({ message: "Invalid email address", error: err });
+      });
+  },
 };
