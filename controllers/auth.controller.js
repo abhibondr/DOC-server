@@ -67,10 +67,21 @@ module.exports = {
       .findOne({ email, status: 1 })
       .then((result) => {
         if (result?._id) {
+          //user is available
+          //generate a link to change the password
+          //http://localhost:3000/change-password/token
+
           const domain = req.headers.origin;
           console.log("domain", domain);
+
+          //generate token
+          const token = createToken({ id: result?._id, email }, 10 * 60);
+          if (!token) throw Promise.reject("token not generated");
+          const link = `${domain}/change-password/${token}`;
+          console.log("reset link: ", link);
           res.status(200).send({ message: "password link send", data: {} });
         } else {
+          //user is not available
           throw Promise.reject("invalid email id ");
         }
       })
