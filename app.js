@@ -14,7 +14,7 @@ app.use((req, res, next) => {
   next();
 });
 
-const port = process.env.PORT || 8082;
+const port = process.env.PORT || 8080;
 
 app.use("/api/users", require("./routes/user.route"));
 app.use("/api/auth", require("./routes/auth.route"));
