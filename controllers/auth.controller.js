@@ -13,7 +13,7 @@ module.exports = {
 
     //validate email
     userModel
-      .findOne({ email, status: 1 })
+      .findOne({ email })
       .then((result) => {
         if (!result) {
           //invalid email

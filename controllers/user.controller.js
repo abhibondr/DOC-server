@@ -95,17 +95,19 @@ const userCtrl = {
   }, //fetchOneUser
 
   fetchAllUsers(req, res) {
-    const filter = {
-      $or: [{ status: 0 }, { status: 1 }],
-    };
+    // const filter = {
+    //   $or: [{ status: 0 }, { status: 1 }],
+    // };
 
-    const { status } = req.query;
+    // const { status } = req.query;
 
-    if (status) filter.status = status;
+    // if (status) filter.status = status;
 
-    UserModel.find(filter)
+    const { id } = req.query;
+
+    UserModel.find({ id })
       .then((result) => {
-        if (!result) throw new Error("User Not available");
+        // if (!result) throw new Error("User Not available");
         res.status(201).send({ message: "User available", data: result });
       })
       .catch((err) => {
