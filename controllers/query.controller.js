@@ -1,8 +1,8 @@
 const { encrypt } = require("../helpers/encryption");
-const UserModel = require("../models/user.model");
+const queryModel = require("../models/query.model");
 const _ = require("lodash");
 
-const userCtrl = {
+const queryCtrl = {
   pickUser(user) {
     return _.pick(user, [
       "_id",
@@ -31,7 +31,8 @@ const userCtrl = {
       });
     }
 
-    UserModel.insertMany(data)
+    queryModel
+      .insertMany(data)
       .then((result) => {
         // if (!result) throw new Error("User Not Created");
         res.status(201).send({ message: "User Created", data: result });
@@ -53,7 +54,8 @@ const userCtrl = {
       user.password = encrypt(user?.password);
     }
 
-    UserModel.findOneAndUpdate({ _id: id }, user, { new: true })
+    queryModel
+      .findOneAndUpdate({ _id: id }, user, { new: true })
       .then((result) => {
         if (!result) throw new Error("User Not Updated");
         res.status(201).send({ message: "User Updated", data: result });
@@ -68,7 +70,8 @@ const userCtrl = {
 
   deleteUser(req, res) {
     const { id } = req.params;
-    UserModel.findOneAndDelete({ _id: id })
+    queryModel
+      .findOneAndDelete({ _id: id })
       .then((result) => {
         if (!result) throw new Error("User Not deleted");
         res.status(201).send({ message: "User deleted", data: result });
@@ -83,7 +86,8 @@ const userCtrl = {
 
   fetchOneUser(req, res) {
     const { id } = req.params;
-    UserModel.findOne({ _id: id })
+    queryModel
+      .findOne({ _id: id })
       .then((result) => {
         if (!result) throw new Error("User Not available");
         res.status(201).send({ message: "User available", data: result });
@@ -105,7 +109,8 @@ const userCtrl = {
 
     const { id } = req.query;
 
-    UserModel.find({ id })
+    queryModel
+      .find({ id })
       .then((result) => {
         // if (!result) throw new Error("User Not available");
         res.status(201).send({ message: "User available", data: result });
@@ -117,4 +122,4 @@ const userCtrl = {
   }, //fetchAllUser
 };
 
-module.exports = userCtrl;
+module.exports = queryCtrl;

@@ -18,4 +18,5 @@ const port = process.env.PORT || 8082;
 
 app.use("/api/users", require("./routes/user.route"));
 app.use("/api/auth", require("./routes/auth.route"));
+app.use("/api/query", require("./routes/query.route"));
 app.listen(port, () => console.log(`Server is listening on port ${port}`));
