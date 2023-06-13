@@ -1,7 +1,7 @@
 const { compare } = require("../helpers/encryption");
 const { createToken, verifyToken } = require("../helpers/token");
-const userModel = require("../models/user.model");
-const { pickUser } = require("./user.controller");
+const { userModel } = require("../models/user.model");
+const { userCtrl } = require("./user.controller");
 
 module.exports = {
   userLogin(req, res) {
@@ -13,7 +13,7 @@ module.exports = {
 
     //validate email
     userModel
-      .findOne({ email, status: 1 })
+      .findOne({ email })
       .then((result) => {
         if (!result) {
           //invalid email
@@ -33,9 +33,10 @@ module.exports = {
           res.set("x-token", token);
 
           //send response
-          res
-            .status(200)
-            .send({ message: "Login Successful", data: pickUser(result) });
+          res.status(200).send({
+            message: "Login Successful",
+            data: userCtrl.pickUser(result),
+          });
         } else {
           //invalid password
           return handleErrorResponse(404, "Invalid password");
