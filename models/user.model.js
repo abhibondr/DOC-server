@@ -1,11 +1,20 @@
 const mongoose = require("mongoose");
-const autoIncrement = require("mongoose-sequence")(mongoose);
 
 const userSchema = new mongoose.Schema({
-  userId: Number,
   name: {
-    first: { type: String, minlength: 3, max: 25 },
-    last: { type: String, minlength: 3, max: 25 },
+    first: {
+      type: String,
+      minlength: 3,
+      max: 25,
+      required: [true, "first name is require"],
+    },
+    last: {
+      type: String,
+      minlength: 3,
+      max: 25,
+
+      required: [true, "last name is require"],
+    },
   },
 
   mobile: {
@@ -20,12 +29,16 @@ const userSchema = new mongoose.Schema({
     required: [true, "User mobile number required"],
   },
 
-  email: String,
-  password: String,
-  avatar: String,
-  role: String,
-  status: Number,
+  email: {
+    type: String,
+    required: [true, "email is require"],
+  },
+  password: {
+    type: String,
+    required: [true, "password is require"],
+  },
 });
 
-userSchema.plugin(autoIncrement, { inc_field: "userId" });
-module.exports = mongoose.model("User", userSchema);
+const userModel = mongoose.model("users", userSchema);
+
+module.exports = { userModel };
