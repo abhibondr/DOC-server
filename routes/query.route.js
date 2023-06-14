@@ -6,7 +6,7 @@ const {
   deleteUser,
   fetchOneUser,
   fetchAllUsers,
-} = require("../controllers/user.controller");
+} = require("../controllers/query.controller");
 
 router.post("/", createUser);
 router.put("/:id", updateUser);

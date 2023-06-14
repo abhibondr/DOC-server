@@ -1,7 +1,7 @@
 const { compare } = require("../helpers/encryption");
 const { createToken, verifyToken } = require("../helpers/token");
-const { userModel } = require("../models/user.model");
-const { userCtrl } = require("./user.controller");
+const { UserModel } = require("../models/user.model");
+const userCtrl = require("./user.controller");
 
 module.exports = {
   userLogin(req, res) {
@@ -12,8 +12,7 @@ module.exports = {
     const { email, password } = req.body;
 
     //validate email
-    userModel
-      .findOne({ email })
+    UserModel.findOne({ email })
       .then((result) => {
         if (!result) {
           //invalid email
@@ -64,8 +63,7 @@ module.exports = {
   passwordResetLink(req, res) {
     const { email } = req.body;
 
-    userModel
-      .findOne({ email, status: 1 })
+    UserModel.findOne({ email, status: 1 })
       .then((result) => {
         if (result?._id) {
           //user is available
