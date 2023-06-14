@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const doctorSchema = new mongoose.Schema(
   {
     userId: {
-      type: String,
+      type: Number,
       unique: true,
     },
     firstName: {
@@ -17,7 +17,7 @@ const doctorSchema = new mongoose.Schema(
 
     phone: {
       type: String,
-
+      unique: true,
       validate: {
         validator: function (v) {
           return /^[0-9]{10}$/.test(v);
