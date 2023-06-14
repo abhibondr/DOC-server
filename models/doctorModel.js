@@ -4,6 +4,7 @@ const doctorSchema = new mongoose.Schema(
   {
     userId: {
       type: String,
+      unique: true,
     },
     firstName: {
       type: String,
@@ -13,19 +14,19 @@ const doctorSchema = new mongoose.Schema(
       type: String,
       required: [true, "last name is required"],
     },
+
     phone: {
       type: String,
 
-      unique: true,
       validate: {
         validator: function (v) {
           return /^[0-9]{10}$/.test(v);
         },
         message: (props) => `${props.value} is not a valid phone number!`,
       },
-
-      required: [true, "phone no is required"],
+      required: [true, "mobile no is required"],
     },
+
     email: {
       type: String,
       required: [true, "email is required"],
@@ -68,4 +69,4 @@ const doctorSchema = new mongoose.Schema(
 );
 
 const doctorModel = mongoose.model("doctors", doctorSchema);
-module.exports = doctorModel;
+module.exports = { doctorModel };
