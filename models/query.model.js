@@ -1,8 +1,6 @@
 const mongoose = require("mongoose");
-const autoIncrement = require("mongoose-sequence")(mongoose);
 
-const userSchema = new mongoose.Schema({
-  userId: Number,
+const querySchema = new mongoose.Schema({
   name: {
     first: { type: String, minlength: 3, max: 25 },
     last: { type: String, minlength: 3, max: 25 },
@@ -21,12 +19,7 @@ const userSchema = new mongoose.Schema({
   },
 
   email: String,
-  password: String,
-  avatar: String,
-  role: String,
-  status: Number,
+  message: String,
 });
 
-userSchema.plugin(autoIncrement, { inc_field: "userId" });
-const UserModel = mongoose.model("User", userSchema);
-module.exports = { UserModel };
+module.exports = mongoose.model("query", querySchema);
