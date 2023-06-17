@@ -1,10 +1,14 @@
 const express = require("express");
-const { getDoctorInfoController } = require("../controllers/doctorController");
+const {
+  getDoctorInfoController,
+  updateStatusController,
+} = require("../controllers/doctorController");
 
 const {
   applyDoctorController,
   bookeAppointmnetController,
   userAppointmentsController,
+  doctorAppointmentController,
 } = require("../controllers/doctorController");
 const router = express.Router();
 
@@ -19,4 +23,11 @@ router.post("/book-appointment", bookeAppointmnetController);
 
 //Appointments List
 router.get("/user-appointments", userAppointmentsController);
+
+//doctor appointment
+router.get("/doctor-appointments", doctorAppointmentController);
+
+//post update status
+router.put("/update-status/:id", updateStatusController);
+
 module.exports = router;
