@@ -1,5 +1,6 @@
 const { compare } = require("../helpers/encryption");
 const { createToken, verifyToken } = require("../helpers/token");
+const { doctorModel } = require("../models/doctorModel");
 const { UserModel } = require("../models/user.model");
 const userCtrl = require("./user.controller");
 
@@ -89,4 +90,47 @@ module.exports = {
         res.status(404).send({ message: "Invalid email address", error: err });
       });
   },
+
+  doctorLogin(req, res) {
+    const handleErrorResponse = (status, message, error) => {
+      res.status(status).send({ message, error });
+    };
+
+    const { email, password } = req.body;
+
+    //validate email
+    doctorModel
+      .findOne({ email })
+      .then((result) => {
+        if (!result) {
+          //invalid email
+          return handleErrorResponse(404, "Invalid email or user is disabled");
+        }
+
+        //validate password
+        if (password) {
+          //valid password
+          //token generate
+          const token = createToken({
+            id: result?._id,
+          });
+
+          //add token in response
+          res.set("x-token", token);
+
+          //send response
+          res.status(200).send({
+            message: "Login Successful",
+            data: result,
+          });
+        } else {
+          //invalid password
+          return handleErrorResponse(404, "Invalid password");
+        }
+      })
+      .catch((err) => {
+        //invalid email
+        return handleErrorResponse(500, "could not login", err);
+      });
+  }, //doctorLogin
 };
