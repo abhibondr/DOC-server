@@ -50,6 +50,7 @@ const applyDoctorController = async (req, res) => {
       website: req.body.website,
       address: req.body.address,
       specialization: req.body.specialization,
+      qualifications: req.body.qualifications,
       experience: req.body.experience,
       feesPerCunsaltation: req.body.feesPerCunsaltation,
       timings: req.body.timings,
