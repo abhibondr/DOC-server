@@ -4,7 +4,7 @@ const appointmentSchema = new mongoose.Schema(
   {
     userId: {
       type: String,
-      required: true,
+      // required: true,
     },
     doctorId: {
       type: String,
