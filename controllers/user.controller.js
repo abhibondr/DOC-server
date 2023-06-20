@@ -48,11 +48,6 @@ const userCtrl = {
     const { id } = req.params;
     const user = req.body;
 
-    //encrypt the password
-    if (user?.password) {
-      user.password = encrypt(user?.password);
-    }
-
     UserModel.findOneAndUpdate({ _id: id }, user, { new: true })
       .then((result) => {
         if (!result) throw new Error("User Not Updated");
@@ -95,15 +90,15 @@ const userCtrl = {
   }, //fetchOneUser
 
   fetchAllUsers(req, res) {
-    const filter = {
-      $or: [{ status: 0 }, { status: 1 }],
-    };
+    // const filter = {
+    //   $or: [{ status: 0 }, { status: 1 }],
+    // };
 
-    const { status } = req.query;
+    // const { status } = req.query;
 
-    if (status) filter.status = status;
+    // if (status) filter.status = status;
 
-    UserModel.find(filter)
+    UserModel.find()
       .then((result) => {
         if (!result) throw new Error("User Not available");
         res.status(201).send({ message: "User available", data: result });
