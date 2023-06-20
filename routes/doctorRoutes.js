@@ -2,6 +2,7 @@ const express = require("express");
 const {
   getDoctorInfoController,
   updateStatusController,
+  doctorAppointmentsById,
 } = require("../controllers/doctorController");
 
 const {
@@ -26,6 +27,9 @@ router.get("/user-appointments", userAppointmentsController);
 
 //doctor appointment
 router.get("/doctor-appointments", doctorAppointmentController);
+
+//Get appointment based on doctor
+router.get("/doctor-appointments/:id", doctorAppointmentsById);
 
 //post update status
 router.put("/update-status/:id", updateStatusController);
