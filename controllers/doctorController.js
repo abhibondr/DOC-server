@@ -114,6 +114,28 @@ const userAppointmentsController = async (req, res) => {
   }
 };
 
+const userAppointmentsById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const appointments = await appointmentModel.find({
+      // status: {"pending"},
+      userId: id,
+    });
+    res.status(200).send({
+      success: true,
+      message: "Users Appointments Fetch SUccessfully By ID",
+      data: appointments,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      error,
+      message: "Error In User Appointments",
+    });
+  }
+};
+
 const doctorAppointmentController = async (req, res) => {
   try {
     const doctor = await doctorModel.findOne({ userId: req.body.userId });
@@ -190,4 +212,5 @@ module.exports = {
   doctorAppointmentController,
   updateStatusController,
   doctorAppointmentsById,
+  userAppointmentsById,
 };

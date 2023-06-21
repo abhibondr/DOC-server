@@ -10,6 +10,7 @@ const {
   bookeAppointmnetController,
   userAppointmentsController,
   doctorAppointmentController,
+  userAppointmentsById,
 } = require("../controllers/doctorController");
 const router = express.Router();
 
@@ -24,6 +25,9 @@ router.post("/book-appointment", bookeAppointmnetController);
 
 //Appointments List
 router.get("/user-appointments", userAppointmentsController);
+
+//Patient Appointment
+router.get("/user-appointments/:id", userAppointmentsById);
 
 //doctor appointment
 router.get("/doctor-appointments", doctorAppointmentController);
