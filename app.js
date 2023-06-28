@@ -24,4 +24,7 @@ app.use("/api/admin", require("./routes/adminRoutes"));
 app.use("/api/doctor", require("./routes/doctorRoutes"));
 
 app.use("/api/query", require("./routes/query.route"));
+
+app.use("/api/feedback", require("./routes/feedback.route"));
+
 app.listen(port, () => console.log(`Server is listening on port ${port}`));
