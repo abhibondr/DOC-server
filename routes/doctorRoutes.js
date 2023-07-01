@@ -2,6 +2,7 @@ const express = require("express");
 const {
   getDoctorInfoController,
   updateStatusController,
+  doctorAppointmentsById,
 } = require("../controllers/doctorController");
 
 const {
@@ -9,6 +10,7 @@ const {
   bookeAppointmnetController,
   userAppointmentsController,
   doctorAppointmentController,
+  userAppointmentsById,
 } = require("../controllers/doctorController");
 const router = express.Router();
 
@@ -24,8 +26,14 @@ router.post("/book-appointment", bookeAppointmnetController);
 //Appointments List
 router.get("/user-appointments", userAppointmentsController);
 
+//Patient Appointment
+router.get("/user-appointments/:id", userAppointmentsById);
+
 //doctor appointment
 router.get("/doctor-appointments", doctorAppointmentController);
+
+//Get appointment based on doctor
+router.get("/doctor-appointments/:id", doctorAppointmentsById);
 
 //post update status
 router.put("/update-status/:id", updateStatusController);
